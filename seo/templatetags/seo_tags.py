@@ -5,6 +5,7 @@ from django.db.models import Model
 from django.utils.html import escape
 from seo.models import Seo, Url
 import warnings
+import urlparse
 
 INTENTS = ['title', 'keywords', 'description', ]
 
@@ -31,7 +32,9 @@ class SeoNode(template.Node):
             return self._process_var_argument(context, None)
         else:
             try:
-                object = Url.objects.get(url=request.path_info)
+                current_url = request.build_absolute_uri()
+                canonical_url = urlparse.urljoin(current_url, urlparse.urlparse(current_url).path)
+                object = Url.objects.get(url=canonical_url)
             except Url.DoesNotExist:
                 return self._process_var_argument(context, None)
             else:
