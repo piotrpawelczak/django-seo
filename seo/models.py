@@ -16,7 +16,7 @@ class Seo(models.Model):
     description = models.CharField(verbose_name=_('Description'), max_length=200, default='', blank=True)
     keywords = models.CharField(verbose_name=_('Keywords'), max_length=1000, default='', blank=True)
 
-    content_type = models.ForeignKey(ContentType)
+    content_type = models.ForeignKey(ContentType, on_delete=models.DO_NOTHING)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 

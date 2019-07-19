@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('description', models.CharField(default=b'', max_length=200, verbose_name='Description', blank=True)),
                 ('keywords', models.CharField(default=b'', max_length=1000, verbose_name='Keywords', blank=True)),
                 ('object_id', models.PositiveIntegerField()),
-                ('content_type', models.ForeignKey(to='contenttypes.ContentType')),
+                ('content_type', models.ForeignKey(to='contenttypes.ContentType', on_delete=models.DO_NOTHING)),
             ],
             options={
                 'verbose_name': 'SEO fields',
