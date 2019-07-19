@@ -1,6 +1,7 @@
 from django import forms
 from seo.models import Seo
 
+
 class SeoForm(forms.ModelForm):
     class Meta:
         model = Seo

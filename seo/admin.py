@@ -20,6 +20,7 @@ class SeoInlines(GenericStackedInline):
 class SeoAdmin(admin.ModelAdmin):
     model = Seo
 
+
 try:
     admin.site.register(Seo, SeoAdmin)
 except admin.sites.AlreadyRegistered:
@@ -29,6 +30,7 @@ except admin.sites.AlreadyRegistered:
 class UrlAdmin(admin.ModelAdmin):
     model = Url
     inlines = [SeoInlines]
+
 
 try:
     admin.site.register(Url, UrlAdmin)
