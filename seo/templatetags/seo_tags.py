@@ -5,11 +5,13 @@ from django.db.models import Model
 from django.utils.html import escape
 from seo.models import Seo, Url
 import warnings
-import urlparse
+from urllib.parse import urlparse
+from urllib.parse import urljoin
 
 INTENTS = ['title', 'keywords', 'description', ]
 
 register = template.Library()
+
 
 class SeoNode(template.Node):
     def __init__(self, intent, object, variable):
@@ -28,12 +30,13 @@ class SeoNode(template.Node):
         try:
             request = context['request']
         except KeyError:
-            warnings.warn('`request` was not found in context. Add "django.core.context_processors.request" to `TEMPLATE_CONTEXT_PROCESSORS` in your settings.py.')
+            warnings.warn('`request` was not found in context. Add "django.core.context_processors.request" to '
+                          '`TEMPLATE_CONTEXT_PROCESSORS` in your settings.py.')
             return self._process_var_argument(context, None)
         else:
             try:
                 current_url = request.build_absolute_uri()
-                canonical_url = urlparse.urljoin(current_url, urlparse.urlparse(current_url).path)
+                canonical_url = urljoin(current_url, urlparse(current_url).path)
                 object = Url.objects.get(url=canonical_url)
             except Url.DoesNotExist:
                 return self._process_var_argument(context, None)
@@ -86,5 +89,7 @@ def seo_tag(parser, token):
                 return SeoNode(splited[1], None, None)
             elif splited[2] == 'as':
                 return SeoNode(splited[1], None, splited[3])
-    raise template.TemplateSyntaxError, "Invalid syntax. Use ``{% seo <title|keywords|description> [for <object>] [as <variable>] %}``"
+    raise template.TemplateSyntaxError
+
+
 register.tag('seo', seo_tag)
