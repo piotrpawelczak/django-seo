@@ -89,7 +89,8 @@ def seo_tag(parser, token):
                 return SeoNode(splited[1], None, None)
             elif splited[2] == 'as':
                 return SeoNode(splited[1], None, splited[3])
-    raise template.TemplateSyntaxError
+    raise template.TemplateSyntaxError("Invalid syntax. Use ``{% seo <title|keywords|description> [for <object>] "
+                                       "[as <variable>] %}``")
 
 
 register.tag('seo', seo_tag)
