@@ -15,9 +15,9 @@ class Migration(migrations.Migration):
             name='Seo',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('title', models.CharField(default=b'', max_length=200, verbose_name='Title', blank=True)),
-                ('description', models.CharField(default=b'', max_length=200, verbose_name='Description', blank=True)),
-                ('keywords', models.CharField(default=b'', max_length=1000, verbose_name='Keywords', blank=True)),
+                ('title', models.CharField(default='', max_length=200, verbose_name='Title', blank=True)),
+                ('description', models.CharField(default='', max_length=200, verbose_name='Description', blank=True)),
+                ('keywords', models.CharField(default='', max_length=1000, verbose_name='Keywords', blank=True)),
                 ('object_id', models.PositiveIntegerField()),
                 ('content_type', models.ForeignKey(to='contenttypes.ContentType', on_delete=models.DO_NOTHING)),
             ],
@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
             name='Url',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('url', models.CharField(default=b'/', help_text="This should be an absolute path, excluding the domain name. Example: '/events/search/'.", unique=True, max_length=200, verbose_name='URL')),
+                ('url', models.CharField(default='/', help_text="This should be an absolute path, excluding the domain name. Example: '/events/search/'.", unique=True, max_length=200, verbose_name='URL')),
             ],
             options={
                 'verbose_name': 'URL',
